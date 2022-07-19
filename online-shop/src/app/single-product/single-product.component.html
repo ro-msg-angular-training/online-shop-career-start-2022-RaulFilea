@@ -1,0 +1,17 @@
+<div *ngFor = "let product of productsList">
+  <div *ngIf = "product.id == 2">
+    <h1>
+    <a [title]="product.name + ' details'">
+      {{ product.name }}
+    </a>
+    </h1>
+    <p>
+      Description: {{product.description}}
+    </p>
+    <img *ngIf = "product.picture" src="{{product.picture}}">
+  </div>
+
+
+
+
+</div>

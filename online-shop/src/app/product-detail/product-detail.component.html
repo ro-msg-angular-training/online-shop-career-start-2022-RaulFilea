@@ -1,0 +1,11 @@
+<div *ngIf = "product">
+  <h2>{{product.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{product.id}}</div>
+  <div>
+    <img src = "{{product.picture}}">
+<!--    <label for="product-name">Hero name: </label>-->
+<!--    <input id="hero-name" [(ngModel)]="product.name" placeholder="Hero name"/>-->
+  </div>
+  <button type="button" (click)="goBack()">Go back</button>
+  <button type="button" routerLink="#">Add to cart</button>
+</div>
