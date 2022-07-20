@@ -1,11 +1,48 @@
 <div *ngIf = "product">
   <h2>{{product.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{product.id}}</div>
-  <div>
-    <img src = "{{product.picture}}">
-<!--    <label for="product-name">Hero name: </label>-->
-<!--    <input id="hero-name" [(ngModel)]="product.name" placeholder="Hero name"/>-->
-  </div>
+
+  <table>
+    <tr>
+      <td>
+        <tr>
+          <td>
+            Name:
+          </td>
+          <td>{{product.name}}</td>
+        </tr>
+        <tr>
+          <td>
+            Category:
+          </td>
+          <td>
+            {{product.category}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Price:
+          </td>
+          <td>
+            ${{product.price}}
+          </td>
+        </tr>
+      </td>
+      <td>
+        <img *ngIf = "product.image" src = "{{product.image}}">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Description:
+      </td>
+      <td>
+        {{product.description}}
+      </td>
+    </tr>
+  </table>
+
+
   <button type="button" (click)="goBack()">Go back</button>
   <button type="button" routerLink="#">Add to cart</button>
+  <button type="button" (click)="deleteProduct()">Delete</button>
 </div>

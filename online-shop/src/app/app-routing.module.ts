@@ -6,7 +6,7 @@ import { ProductDetailComponent } from "./product-detail/product-detail.componen
 
 const routes: Routes = [
   {path: 'products', component: MultiProductComponent,  title: "All Products"},
-  {path: 'detail/:id', component: ProductDetailComponent, title: "More Details"},
+  {path: 'products/:id', component: ProductDetailComponent, title: "More Details"},
   {path: '', redirectTo: 'products', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent, title: "ERR404"},
 ];
