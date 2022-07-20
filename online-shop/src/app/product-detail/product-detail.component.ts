@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { Location } from "@angular/common";
-import { Product } from "../products";
-import { ActivatedRoute } from "@angular/router";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable, Subscription} from "rxjs";
+import {Location} from "@angular/common";
+import {Product} from "../products";
+import {ActivatedRoute} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
+import {Subscription} from "rxjs";
 import {ProductService} from "../services/product-service";
+import {CartService} from "../services/cart-service";
 
 @Component({
   selector: 'app-product-detail',
@@ -20,7 +21,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private location: Location,
     private http: HttpClient,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -35,11 +37,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  addToCart() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    window.alert('Your product has been added to the cart!');
   }
 
-  deleteProduct() {
+  deleteProduct(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.productService.deleteProduct(id);
   }
