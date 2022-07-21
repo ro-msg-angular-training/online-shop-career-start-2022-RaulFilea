@@ -16,6 +16,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   product!: Product;
   productsSubscription?: Subscription;
+  products!: Product[];
 
   constructor(
     private route: ActivatedRoute,
@@ -28,8 +29,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.productsSubscription = this.productService.getProductDetails(id).subscribe(
-      (response) => this.product = response,
-      (error) => {alert(error.message)}
+      (response) => this.product = response
     );
   }
 
@@ -44,7 +44,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   deleteProduct(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.deleteProduct(id);
+    this.productService.deleteProduct(id).subscribe(() => {
+      this.productService.getProducts().subscribe((products) => {
+        this.products = products;
+        alert("Product with ID " + id + " has been successfully deleted!");
+        this.goBack();
+      })
+    });
   }
 
   ngOnDestroy(): void {

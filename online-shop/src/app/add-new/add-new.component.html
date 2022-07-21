@@ -1,0 +1,24 @@
+<div>
+  <form [formGroup]="addProductForm" *ngIf="addProductForm">
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="prodName">
+
+    <label for="category">Category: </label>
+    <input id="category" type="text" formControlName="prodCat">
+
+    <label for="price">Price: </label>
+    <input id="price" type="text" formControlName="prodPrice">
+
+    <label for="image">Image: </label>
+    <input id="image" type="text" formControlName="prodImg">
+
+    <label for="description">Description: </label>
+    <input id="description" type="text" formControlName="prodDesc">
+  </form>
+</div>
+
+<br><br>
+<button type="button" (click)="goBack()">Cancel</button>
+<button type="button"  (click)="updateProduct()" >Save</button>
+
+<!--[disabled]="!editProductForm.valid"-->

@@ -16,18 +16,18 @@ export class ProductService {
   };
 
   public getProductDetails = (id: number): Observable<Product> => {
-    return this.http.get<Product>(environment.backendURL + "/products/" + id)
+    return this.http.get<Product>(environment.backendURL + "/products/" + id);
   }
 
-  public deleteProduct = (id: number): void => {
-    this.http.delete(environment.backendURL + '/products' + id)
-      .subscribe(
-        (val) => {
-          console.log('DELETED Product with id ' + id);
-        },
-        (error) => {
-          console.log('There was an error: ' + error);
-        }
-      );
+  public deleteProduct = (id: number): Observable<void> => {
+    return this.http.delete<void>(environment.backendURL + '/products/' + id);
+  }
+
+  updateProduct(product: Product, id: number) {
+    return this.http.put(environment.backendURL + '/products/' + id, product);
+  }
+
+  addNewProduct(product: Product) {
+    return this.http.post(environment.backendURL + '/products', product);
   }
 }
