@@ -1,11 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
-import {Product} from "../products";
+import {Product} from "../models/products";
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ProductService} from "../services/product-service";
 import {CartService} from "../services/cart-service";
+import {AuthenticationService} from "../services/authentication.service";
+import {environment} from "../../environments/environment";
+import {admin} from "../utils";
 
 @Component({
   selector: 'app-product-detail',
@@ -17,13 +20,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   product!: Product;
   productsSubscription?: Subscription;
   products!: Product[];
+  hasAdminRole = this.authenticationService.hasRoleType(admin);
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private http: HttpClient,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    public authenticationService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +43,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: Product) {
-    this.cartService.addToCart(product);
+    this.cartService.addToCart(product.id);
     window.alert('Your product has been added to the cart!');
   }
 

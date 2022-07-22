@@ -50,7 +50,7 @@
   <div style="width:100%; float: left">
     <button type="button" (click)="goBack()">Go back</button>
     <button type="button" (click)="addToCart(product)">Add to cart</button>
-    <button type="button" (click)="deleteProduct()">Delete</button>
-    <button type="button" routerLink="/edit/{{product.id}}">Edit</button>
+    <button type="button" *ngIf="hasAdminRole" (click)="deleteProduct()">Delete</button>
+    <button type="button" *ngIf="hasAdminRole" routerLink="/edit/{{product.id}}">Edit</button>
   </div>
 </div>

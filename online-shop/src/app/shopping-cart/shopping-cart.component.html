@@ -1,8 +1,9 @@
-<button (click)="checkout()">Checkout</button>
-
 <h3>Cart</h3>
 
 <div class="cart-item" *ngFor="let item of items">
-  <span>{{ item.name }} || </span>
-  <span>{{ item.price | currency }}</span>
+  <span>prodId: {{ item.productId }} ---- </span>
+  <span>quantity: {{ item.quantity }}</span>
 </div>
+
+<button type="button" (click)="checkout()">Checkout</button>
+<button type="button" (click)="clearCart()">Clear Cart</button>

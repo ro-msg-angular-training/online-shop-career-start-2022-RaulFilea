@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
 import {CartService} from "../services/cart-service";
+import {Location} from '@angular/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,8 +11,11 @@ import {CartService} from "../services/cart-service";
 export class ShoppingCartComponent implements OnInit {
 
   constructor(
-    private cartService: CartService
-  ) {}
+    private cartService: CartService,
+    private location: Location,
+    private router: Router
+  ) {
+  }
 
   items = this.cartService.getItems();
 
@@ -19,6 +23,14 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout(): void {
-    this.cartService.checkout();
+    this.cartService.checkout().subscribe(() => {
+      alert("Checkout complete!");
+      this.router.navigateByUrl('');
+    });
+  }
+
+  clearCart() {
+    this.cartService.clearCart();
+    this.router.navigateByUrl('');
   }
 }

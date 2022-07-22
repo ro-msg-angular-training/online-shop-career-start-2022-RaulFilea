@@ -10,7 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
 import {EditComponent} from './edit/edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { AddNewComponent } from './add-new/add-new.component';
+import {AddNewComponent} from './add-new/add-new.component';
+import {LoginComponent} from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AddNewComponent } from './add-new/add-new.component';
     ShoppingCartComponent,
     EditComponent,
     AddNewComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

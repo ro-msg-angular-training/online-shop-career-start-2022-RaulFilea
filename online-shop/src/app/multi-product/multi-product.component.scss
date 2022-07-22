@@ -1,7 +1,3 @@
-img {
-  width: 30%;
-}
-
 /* productsComponent's private CSS styles */
 .products {
   margin: 0 0 2em 0;
@@ -19,8 +15,9 @@ img {
 }
 
 .products a {
-  color: #333;
+  color: #333000;
   text-decoration: none;
+  text-align: center;
   background-color: #EEE;
   margin: .5em;
   padding: .3em 0;
