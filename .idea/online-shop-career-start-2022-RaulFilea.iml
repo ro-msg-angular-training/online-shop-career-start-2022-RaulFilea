@@ -5,6 +5,9 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/online-shop/.angular/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/online-shop/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/online-shop/.vscode" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
