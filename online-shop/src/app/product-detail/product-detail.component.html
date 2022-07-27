@@ -50,7 +50,7 @@
   <div class="miscButtons">
     <button type="button" class="miscButtonsB" (click)="goBack()">Go back</button>
     <button type="button" class="miscButtonsB" (click)="addToCart(product)">Add to cart</button>
-    <button type="button" class="miscButtonsB" *ngIf="hasAdminRole" (click)="deleteProduct()">Delete</button>
-    <button type="button" class="miscButtonsB" *ngIf="hasAdminRole" routerLink="/edit/{{product.id}}">Edit</button>
+    <button type="button" class="miscButtonsB" *ngIf="!hasAdminRole" (click)="deleteProduct()">Delete</button>
+    <button type="button" class="miscButtonsB" *ngIf="!hasAdminRole" routerLink="/edit/{{product.id}}">Edit</button>
   </div>
 </div>

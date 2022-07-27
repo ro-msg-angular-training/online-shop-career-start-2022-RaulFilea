@@ -1,9 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {Product} from "../models/products";
 import {ProductService} from "../services/product-service";
+import {addProduct, getProduct, updateProduct} from "../store/actions/product.actions";
+import {Store} from "@ngrx/store";
+import {AppState} from "../store/state/app.state";
+import {selectOneProduct} from "../store/selectors/product.selectors";
 
 @Component({
   selector: 'app-edit',
@@ -13,19 +17,23 @@ import {ProductService} from "../services/product-service";
 
 export class EditComponent implements OnInit {
   editProductForm: FormGroup | undefined;
-  product: Product | undefined;
+  product: Product | null | undefined;
+  selectedProduct = this.store.select(selectOneProduct);
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private editFormBuilder: FormBuilder,
     private productService: ProductService,
+    private store: Store<AppState>,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'))
-    this.productService.getProductDetails(id).subscribe((item: Product) =>
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.store.dispatch(getProduct({id}));
+    this.selectedProduct.subscribe((item) =>
     {
       this.product = item;
       this.editProductForm = this.editFormBuilder.group({
@@ -39,7 +47,7 @@ export class EditComponent implements OnInit {
   }
 
   updateProduct() {
-    if (this.product) {
+    if(this.product) {
       if (this.editProductForm?.valid) {
         this.product = {
           id: this.product.id,
@@ -49,11 +57,9 @@ export class EditComponent implements OnInit {
           price: this.editProductForm?.value.prodPrice,
           description: this.editProductForm?.value.prodDesc,
         }
-        this.productService.updateProduct(this.product, this.product.id).subscribe(() =>
-        {
-          alert("Successfully updated product!");
-          this.goBack();
-        });
+        this.store.dispatch(updateProduct({product: this.product, id: this.product.id}));
+        alert("Success!")
+        this.router.navigateByUrl('');
       } else {
         alert("Invalid data. Retry?")
       }
