@@ -10,3 +10,32 @@
 .product-details-vals {
   padding-left: 1em;
 }
+
+.miscButtons {
+  width:100%;
+  float: left;
+}
+
+.prodDetails {
+  float: left;
+  width: 65%;
+}
+
+.prodImg {
+  float: left;
+  width:30%;
+}
+
+.miscButtonsB {
+  margin:.2em;
+  font-size: x-large;
+  color: black;
+  background-color: rgb(0, 224, 152);
+  border: none;
+  border-radius:100px;
+  margin: .1em;
+}
+
+.miscButtonsB:hover {
+  background-color: #d3d3d3;
+}

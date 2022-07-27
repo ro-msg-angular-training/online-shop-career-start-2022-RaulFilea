@@ -11,10 +11,7 @@ import {LoginGuard} from "./guards/login.guard";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login'},
-  {
-    path: '',
-    canActivate: [LoginGuard],
-    children: [
+  //{path: '', canActivate: [LoginGuard], children: [
       {path: 'products', component: MultiProductComponent, title: "All Products"},
       {path: 'products/:id', component: ProductDetailComponent, title: "More Details"},
       {path: 'cart', component: ShoppingCartComponent, title: 'Shopping Cart'},
@@ -22,8 +19,7 @@ const routes: Routes = [
       {path: 'add-new', component: AddNewComponent, title: 'Add New Product'},
       {path: '', redirectTo: 'products', pathMatch: 'full'},
       {path: '**', component: PageNotFoundComponent, title: "ERR404"},
-    ],
-  }
+    //]}
 ];
 
 @NgModule({

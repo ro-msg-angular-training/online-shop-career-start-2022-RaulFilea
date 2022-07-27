@@ -12,6 +12,16 @@ import {EditComponent} from './edit/edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AddNewComponent} from './add-new/add-new.component';
 import {LoginComponent} from './login/login.component';
+import {ActionReducerMap, StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
+import {productReducer} from "./store/reducers/product.reducers";
+import {ProductEffects} from "./store/effects/product.effects";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatListModule} from "@angular/material/list";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {AppState} from "./store/state/app.state";
+import {ProductState} from "./store/state/product.state";
+import {reducers} from "./store/reducers";
 
 @NgModule({
   declarations: [
@@ -28,7 +38,15 @@ import {LoginComponent} from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([ProductEffects]),
+    BrowserAnimationsModule,
+    MatListModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: false
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

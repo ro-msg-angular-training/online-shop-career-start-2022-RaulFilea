@@ -1,56 +1,56 @@
-<div *ngIf = "product">
-  <h2>{{product.name | uppercase}} Details</h2>
+<div *ngIf="(product | async) as product">
+  <h2>{{this.product.name | uppercase}} Details</h2>
 
-  <div style="width:100%">
-  <div style = "float: left; width:30%">
-    <img *ngIf = "product.image" src = "{{product.image}}">
-  </div>
-  <div style = "float: left; width: 65%">
-    <table>
-      <tr>
-        <td class="product-details-attr">
-          Name
-        </td>
-        <td class="product-details-vals">
-          {{product.name}}
-        </td>
-      </tr>
-      <tr>
-        <td class="product-details-attr">
-          Category
-        </td>
-        <td class="product-details-vals">
-          {{product.category}}
-        </td>
-      </tr>
-      <tr>
-        <td class="product-details-attr">
-          Price
-        </td>
-        <td class="product-details-vals">
-          ${{product.price}}
-        </td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-        <td class="product-details-attr product-details-attr-2">
-          Details:
-        </td>
-      </tr>
-      <tr>
-        <td class="product-details-vals">
-          {{product.description}}
-        </td>
-      </tr>
-    </table>
-  </div>
+  <div>
+    <div class="prodImg">
+      <img *ngIf="product.image" src="{{product.image}}">
+    </div>
+    <div class="prodDetails">
+      <table>
+        <tr>
+          <td class="product-details-attr">
+            Name
+          </td>
+          <td class="product-details-vals">
+            {{product.name}}
+          </td>
+        </tr>
+        <tr>
+          <td class="product-details-attr">
+            Category
+          </td>
+          <td class="product-details-vals">
+            {{product.category}}
+          </td>
+        </tr>
+        <tr>
+          <td class="product-details-attr">
+            Price
+          </td>
+          <td class="product-details-vals">
+            ${{product.price}}
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="product-details-attr product-details-attr-2">
+            Details:
+          </td>
+        </tr>
+        <tr>
+          <td class="product-details-vals">
+            {{product.description}}
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 
-  <div style="width:100%; float: left">
-    <button type="button" (click)="goBack()">Go back</button>
-    <button type="button" (click)="addToCart(product)">Add to cart</button>
-    <button type="button" *ngIf="hasAdminRole" (click)="deleteProduct()">Delete</button>
-    <button type="button" *ngIf="hasAdminRole" routerLink="/edit/{{product.id}}">Edit</button>
+  <div class="miscButtons">
+    <button type="button" class="miscButtonsB" (click)="goBack()">Go back</button>
+    <button type="button" class="miscButtonsB" (click)="addToCart(product)">Add to cart</button>
+    <button type="button" class="miscButtonsB" *ngIf="hasAdminRole" (click)="deleteProduct()">Delete</button>
+    <button type="button" class="miscButtonsB" *ngIf="hasAdminRole" routerLink="/edit/{{product.id}}">Edit</button>
   </div>
 </div>

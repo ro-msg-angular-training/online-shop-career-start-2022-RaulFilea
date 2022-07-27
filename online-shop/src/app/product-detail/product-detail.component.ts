@@ -1,14 +1,17 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {Product} from "../models/products";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {ProductService} from "../services/product-service";
 import {CartService} from "../services/cart-service";
 import {AuthenticationService} from "../services/authentication.service";
-import {environment} from "../../environments/environment";
 import {admin} from "../utils";
+import {Store} from "@ngrx/store";
+import {getProduct, removeProduct} from "../store/actions/product.actions";
+import {AppState} from "../store/state/app.state";
+import {selectOneProduct} from "../store/selectors/product.selectors";
 
 @Component({
   selector: 'app-product-detail',
@@ -17,10 +20,10 @@ import {admin} from "../utils";
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
 
-  product!: Product;
+  product = this.store.select(selectOneProduct);
   productsSubscription?: Subscription;
-  products!: Product[];
   hasAdminRole = this.authenticationService.hasRoleType(admin);
+  id!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,14 +31,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private productService: ProductService,
     private cartService: CartService,
-    public authenticationService: AuthenticationService
-  ) { }
+    public authenticationService: AuthenticationService,
+    private store: Store<AppState>,
+    private router: Router,
+  ) {
+  }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productsSubscription = this.productService.getProductDetails(id).subscribe(
-      (response) => this.product = response
-    );
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id != null) {
+      this.store.dispatch(getProduct({id: this.id}));
+    }
   }
 
   goBack(): void {
@@ -48,14 +54,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteProduct(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.deleteProduct(id).subscribe(() => {
-      this.productService.getProducts().subscribe((products) => {
-        this.products = products;
-        alert("Product with ID " + id + " has been successfully deleted!");
-        this.goBack();
-      })
-    });
+    if (this.id != null) {
+      this.store.dispatch(removeProduct({id: this.id}))
+      alert("Product with ID " + this.id + " has been successfully deleted!");
+      this.router.navigateByUrl('');
+    }
   }
 
   ngOnDestroy(): void {

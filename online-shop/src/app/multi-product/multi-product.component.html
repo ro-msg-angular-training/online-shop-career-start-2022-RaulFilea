@@ -1,12 +1,15 @@
-<h2>Products</h2>
+<body>
+  <h2>Products</h2>
 
-  <ul class="products">
-    <li *ngFor="let product of products">
-      <a routerLink = "/products/{{product.id}}">
-        <span class="name">{{product.name}}</span>
-      </a>
-    </li>
-  </ul>
+  <mat-nav-list class="products">
+    <a *ngFor="let product of (products | async)" routerLink = "/products/{{product.id}}">{{product.name}}</a>
+  </mat-nav-list>
+</body>
 
-
-
+<!--  <ul class="products">-->
+<!--    <li *ngFor="let product of (products | async)">-->
+<!--      <a routerLink = "/products/{{product.id}}">-->
+<!--        <span class="name">{{product.name}}</span>-->
+<!--      </a>-->
+<!--    </li>-->
+<!--  </ul>-->

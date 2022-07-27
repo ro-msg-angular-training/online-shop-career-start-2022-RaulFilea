@@ -1,8 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Product} from "../models/products";
 import {Subscription} from "rxjs";
 import {ProductService} from "../services/product-service";
+import {Store} from "@ngrx/store";
+import {loadProducts} from "../store/actions/product.actions";
+import {AppState} from "../store/state/app.state";
+import {selectAllProducts} from "../store/selectors/product.selectors";
 
 @Component({
   selector: 'app-multi-product',
@@ -12,17 +15,18 @@ import {ProductService} from "../services/product-service";
 
 export class MultiProductComponent implements OnInit, OnDestroy {
 
-  products: Product[] = [];
+  products = this.store.select(selectAllProducts);
   productsSubscription?: Subscription;
 
-  ngOnInit(): void {
-    this.productsSubscription = this.productService.getProducts().subscribe(
-      (response) => {this.products = response},
-      (error) => {alert(error.message)});
+  constructor(
+    private http: HttpClient,
+    private productService: ProductService,
+    private store: Store<AppState>,
+  ) {
   }
 
-  constructor(private http: HttpClient,
-              private productService: ProductService) {
+  ngOnInit(): void {
+    this.store.dispatch(loadProducts());
   }
 
   ngOnDestroy(): void {

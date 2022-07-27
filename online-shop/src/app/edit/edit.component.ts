@@ -35,7 +35,6 @@ export class EditComponent implements OnInit {
         prodImg: [this.product?.image, [Validators.required, Validators.minLength(10), Validators.maxLength(5000)]],
         prodDesc: [this.product?.description, [Validators.required, Validators.minLength(20), Validators.maxLength(5000)]],
       });
-      this.editProductForm.valueChanges.subscribe(console.log);
     });
   }
 
